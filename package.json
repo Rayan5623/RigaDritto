@@ -1,0 +1,13 @@
+{
+  "name": "4-zone",
+  "version": "1.0.0",
+  "private": true,
+  "description": "4 Zone - gestione attività su lavagna fisica a 4 zone (self-hosted, LAN)",
+  "scripts": {
+    "install-all": "npm install --prefix server && npm install --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "build": "npm run build --prefix client",
+    "start": "npm run build --prefix client && npm run start --prefix server"
+  }
+}
