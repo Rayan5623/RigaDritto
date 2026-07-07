@@ -90,7 +90,7 @@ export default function Home() {
           </div>
         )}
 
-        <div className="max-w-md sm:max-w-2xl mx-auto px-4 py-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="max-w-md min-[480px]:max-w-2xl mx-auto px-4 py-4 grid grid-cols-1 min-[480px]:grid-cols-2 gap-4">
           <ZoneCard
             zonaId="inbox"
             colore="#2563eb"
@@ -164,7 +164,7 @@ export default function Home() {
             ))}
           </ZoneCard>
 
-          <div className="sm:col-span-2">
+          <div className="min-[480px]:col-span-2">
             <ZoneCard
               colore="#dc2626"
               titolo="scadenze"
