@@ -15,6 +15,12 @@ export default function TesseraDraggable({ tessera, numero }) {
   const style = {
     touchAction: "none",
     WebkitTouchCallout: "none",
+    // senza queste il mousedown+move su PC viene interpretato dal browser
+    // come selezione del testo della card invece che come inizio del drag
+    userSelect: "none",
+    WebkitUserSelect: "none",
+    MozUserSelect: "none",
+    msUserSelect: "none",
     transform: CSS.Translate.toString(transform),
     opacity: isDragging ? 0.4 : 1,
   };
