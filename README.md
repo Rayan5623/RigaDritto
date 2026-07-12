@@ -203,6 +203,12 @@ quando rientri in rete e il pc è acceso e raggiungibile.
 
 Le tessere si muovono solo in avanti: inbox → oggi → in corso → fatto.
 
+Nella schermata **zone** le tessere si possono anche trascinare (drag-and-drop)
+da un quadrante all'altro, sia col mouse sul pc sia col dito su telefono/
+tablet: se lo spostamento non è valido (zona "in corso" già piena, o un
+tentativo di tornare indietro) la tessera torna al suo posto e appare lo
+stesso messaggio di blocco mostrato negli altri punti dell'app.
+
 ## Struttura del progetto
 
 ```
