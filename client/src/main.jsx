@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import { SettingsProvider } from "./context/SettingsContext.jsx";
 import { TasksProvider } from "./context/TasksContext.jsx";
+import { SieveProvider } from "./context/SieveContext.jsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -11,7 +12,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <SettingsProvider>
         <TasksProvider>
-          <App />
+          <SieveProvider>
+            <App />
+          </SieveProvider>
         </TasksProvider>
       </SettingsProvider>
     </BrowserRouter>

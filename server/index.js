@@ -13,7 +13,8 @@ import { createServer } from "node:http";
 import { WebSocketServer } from "ws";
 
 import { tasksRouter } from "./routes/tasks.js";
-import { listTasks } from "./db.js";
+import { sieveTasksRouter } from "./routes/sieveTasks.js";
+import { listTasks, listSieveTasks } from "./db.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 3000;
@@ -36,12 +37,16 @@ function broadcast(message) {
 }
 
 wss.on("connection", (socket) => {
-  // al collegamento, mandiamo subito lo stato attuale: utile quando il
-  // telefono si riconnette dopo essere stato offline.
+  // al collegamento, mandiamo subito lo stato attuale di entrambi i sistemi
+  // di dati (tessere e setacci): utile quando il telefono si riconnette
+  // dopo essere stato offline. Sono due messaggi indipendenti perché sono
+  // due sistemi di dati separati.
   socket.send(JSON.stringify({ type: "tasks:changed", tasks: listTasks() }));
+  socket.send(JSON.stringify({ type: "sieve:changed", sieveTasks: listSieveTasks() }));
 });
 
 app.use("/api/tasks", tasksRouter(broadcast));
+app.use("/api/sieve-tasks", sieveTasksRouter(broadcast));
 
 app.get("/api/health", (req, res) => {
   res.json({ ok: true, ora: new Date().toISOString() });

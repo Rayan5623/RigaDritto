@@ -72,13 +72,23 @@ export default function Home() {
         <Header
           titolo="zone"
           azioneDestra={
-            <button
-              onClick={() => navigate("/cattura")}
-              aria-label="cattura veloce"
-              className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-xl leading-none"
-            >
-              +
-            </button>
+            <>
+              <button
+                onClick={() => navigate("/setacci")}
+                aria-label="metodo decisionale: i tre setacci"
+                title="metodo decisionale: i tre setacci"
+                className="w-9 h-9 flex items-center justify-center rounded-full text-gray-400 dark:text-gray-500 active:bg-gray-100 dark:active:bg-gray-800 text-lg leading-none"
+              >
+                ◈
+              </button>
+              <button
+                onClick={() => navigate("/cattura")}
+                aria-label="cattura veloce"
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-xl leading-none"
+              >
+                +
+              </button>
+            </>
           }
         />
 
