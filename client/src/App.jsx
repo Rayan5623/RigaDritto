@@ -6,6 +6,7 @@ import Scadenze from "./screens/Scadenze.jsx";
 import ChiusuraSerale from "./screens/ChiusuraSerale.jsx";
 import Report from "./screens/Report.jsx";
 import Impostazioni from "./screens/Impostazioni.jsx";
+import Setacci from "./screens/Setacci.jsx";
 import TabBar from "./components/TabBar.jsx";
 import ConnessioneStatus from "./components/ConnessioneStatus.jsx";
 
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/chiusura" element={<ChiusuraSerale />} />
           <Route path="/report" element={<Report />} />
           <Route path="/impostazioni" element={<Impostazioni />} />
+          <Route path="/setacci" element={<Setacci />} />
         </Routes>
       </main>
       <TabBar />

@@ -32,6 +32,20 @@ db.exec(`
   );
 `);
 
+// Tabella separata per "i tre setacci": stesso stile della tabella tasks,
+// ma e' un sistema di dati indipendente (bucket diversi, nessuna relazione
+// con le tessere delle 4 zone).
+db.exec(`
+  CREATE TABLE IF NOT EXISTS sieve_tasks (
+    id TEXT PRIMARY KEY,
+    testo TEXT NOT NULL,
+    bucket TEXT NOT NULL DEFAULT 'POI',
+    done INTEGER NOT NULL DEFAULT 0,
+    creato_il TEXT NOT NULL,
+    aggiornato_il TEXT NOT NULL
+  );
+`);
+
 // riga -> oggetto JS con i tipi giusti (json parse, booleani veri)
 function fromRow(row) {
   if (!row) return null;
@@ -135,4 +149,73 @@ export function setArchiviato(id, archiviato) {
 
 export function deleteTask(id) {
   db.prepare(`DELETE FROM tasks WHERE id = ?`).run(id);
+}
+
+// ---- sieve_tasks: "i tre setacci" (sistema di dati separato dalle tessere) ----
+
+function sieveFromRow(row) {
+  if (!row) return null;
+  return {
+    id: row.id,
+    testo: row.testo,
+    bucket: row.bucket,
+    done: !!row.done,
+    creatoIl: row.creato_il,
+    aggiornatoIl: row.aggiornato_il,
+  };
+}
+
+export function listSieveTasks() {
+  const rows = db.prepare(`SELECT * FROM sieve_tasks ORDER BY creato_il DESC`).all();
+  return rows.map(sieveFromRow);
+}
+
+export function getSieveTask(id) {
+  const row = db.prepare(`SELECT * FROM sieve_tasks WHERE id = ?`).get(id);
+  return sieveFromRow(row);
+}
+
+export function createSieveTask({ testo, bucket }) {
+  const now = new Date().toISOString();
+  const task = {
+    id: randomUUID(),
+    testo,
+    bucket,
+    done: false,
+    creatoIl: now,
+    aggiornatoIl: now,
+  };
+  db.prepare(
+    `INSERT INTO sieve_tasks (id, testo, bucket, done, creato_il, aggiornato_il)
+     VALUES (@id, @testo, @bucket, @done, @creatoIl, @aggiornatoIl)`
+  ).run({ ...task, done: 0 });
+  return getSieveTask(task.id);
+}
+
+// aggiornamento generico: testo, bucket e/o done, tutti opzionali.
+// Last-write-wins, come per le tessere.
+export function updateSieveTask(id, patch) {
+  const existing = getSieveTask(id);
+  if (!existing) return null;
+
+  const merged = {
+    testo: patch.testo ?? existing.testo,
+    bucket: patch.bucket ?? existing.bucket,
+    done: patch.done ?? existing.done,
+  };
+
+  db.prepare(
+    `UPDATE sieve_tasks SET testo = @testo, bucket = @bucket, done = @done, aggiornato_il = @now WHERE id = @id`
+  ).run({
+    id,
+    testo: merged.testo,
+    bucket: merged.bucket,
+    done: merged.done ? 1 : 0,
+    now: new Date().toISOString(),
+  });
+  return getSieveTask(id);
+}
+
+export function deleteSieveTask(id) {
+  db.prepare(`DELETE FROM sieve_tasks WHERE id = ?`).run(id);
 }

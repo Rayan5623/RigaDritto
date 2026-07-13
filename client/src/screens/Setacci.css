@@ -1,0 +1,201 @@
+/* Stile dedicato a "RigaDritto — metodo decisionale" (i tre setacci).
+   Deliberatamente diverso dal resto dell'app (palette carta/inchiostro,
+   font serif per i titoli, bordi netti senza arrotondamenti): è una scelta
+   di design per questa sezione, non un errore da uniformare. Tutte le
+   variabili e le classi sono sotto .sd-root, cosi' non trapelano nel resto
+   dell'app ne' viceversa. */
+
+.sd-root {
+  --sd-paper: #f0ebe1;
+  --sd-paper-2: #e4ddce;
+  --sd-ink: #1c1a17;
+  --sd-ink-soft: #514c43;
+  --sd-ink-faint: #8a8377;
+  --sd-line: #c9c0ae;
+  --sd-accent: #b23a28;
+  --sd-accent-soft: #e8cfc7;
+  --sd-ok: #3f6b4a;
+  --sd-park: #7a7266;
+  --sd-wait: #9a7b2e;
+  --sd-f-disp: "Georgia", "Times New Roman", serif;
+  --sd-f-body: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+
+  font-family: var(--sd-f-body);
+  color: var(--sd-ink);
+  background: var(--sd-paper);
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0 33px,
+    rgba(201, 192, 174, 0.35) 33px 34px
+  );
+  min-height: 100%;
+  padding-bottom: 90px;
+}
+.sd-root * {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sd-top {
+  padding: 20px 16px 12px;
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--sd-ink);
+}
+.sd-back {
+  font-family: var(--sd-f-body);
+  font-size: 13px;
+  color: var(--sd-ink-soft);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.sd-brand { font-family: var(--sd-f-disp); font-size: 26px; letter-spacing: 0.5px; font-weight: 700; }
+.sd-brand .sd-rig { color: var(--sd-accent); }
+.sd-brand-sub { font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--sd-ink-faint); }
+
+.sd-wrap { max-width: 560px; margin: 0 auto; padding: 0 16px; }
+
+.sd-faces { display: flex; gap: 0; margin: 16px 0 20px; border: 2px solid var(--sd-ink); }
+.sd-faces button {
+  flex: 1;
+  padding: 12px 8px;
+  border: none;
+  background: transparent;
+  font-family: var(--sd-f-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--sd-ink-soft);
+  cursor: pointer;
+}
+.sd-faces button.on { background: var(--sd-ink); color: var(--sd-paper); }
+.sd-faces .sd-tag {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+.sd-section { font-family: var(--sd-f-disp); font-size: 19px; margin: 4px 0 4px; }
+.sd-hint { font-size: 12.5px; color: var(--sd-ink-soft); margin: 0 0 16px; line-height: 1.45; }
+
+.sd-sieve {
+  background: var(--sd-paper-2);
+  border: 1.5px solid var(--sd-line);
+  padding: 14px 14px 12px;
+  margin-bottom: 10px;
+  position: relative;
+}
+.sd-sieve .sd-num { font-family: var(--sd-f-disp); font-weight: 700; color: var(--sd-accent); font-size: 15px; margin-right: 6px; }
+.sd-sieve .sd-q { font-size: 14px; line-height: 1.4; }
+.sd-yesno { display: flex; gap: 8px; margin-top: 10px; }
+.sd-yesno button {
+  flex: 1;
+  padding: 9px;
+  border: 1.5px solid var(--sd-ink-soft);
+  background: transparent;
+  font-family: var(--sd-f-body);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--sd-ink-soft);
+}
+.sd-yesno button.si.on { background: var(--sd-ok); border-color: var(--sd-ok); color: #fff; }
+.sd-yesno button.no.on { background: var(--sd-accent); border-color: var(--sd-accent); color: #fff; }
+
+.sd-verdict { padding: 16px 14px; margin-top: 6px; border: 2px solid var(--sd-ink); text-align: center; }
+.sd-verdict .sd-big { font-family: var(--sd-f-disp); font-size: 20px; font-weight: 700; }
+.sd-verdict.pass { background: var(--sd-ok); color: #fff; border-color: var(--sd-ok); }
+.sd-verdict.park { background: var(--sd-paper-2); color: var(--sd-park); }
+.sd-verdict .sd-lbl { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.85; }
+
+.sd-input-idea,
+.sd-input-task {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1.5px solid var(--sd-ink);
+  background: var(--sd-paper);
+  font-family: var(--sd-f-body);
+  font-size: 14px;
+  color: var(--sd-ink);
+  margin-bottom: 12px;
+}
+.sd-root input:focus { outline: 2px solid var(--sd-accent); outline-offset: 1px; }
+
+.sd-btn-primary {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: var(--sd-ink);
+  color: var(--sd-paper);
+  font-family: var(--sd-f-body);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  margin-top: 12px;
+}
+.sd-btn-primary:disabled { opacity: 0.35; cursor: default; }
+.sd-btn-primary.pass { background: #fff; color: var(--sd-ok); }
+.sd-btn-primary.park { background: var(--sd-park); }
+
+.sd-bucket-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 16px; }
+.sd-chip { font-size: 11px; padding: 5px 8px; border-left: 4px solid; background: var(--sd-paper-2); color: var(--sd-ink-soft); line-height: 1.35; }
+.sd-chip b { color: var(--sd-ink); font-size: 11.5px; }
+.sd-chip[data-bucket="ORA"] { border-color: var(--sd-accent); }
+.sd-chip[data-bucket="DOPO"] { border-color: var(--sd-ink); }
+.sd-chip[data-bucket="POI"] { border-color: var(--sd-ink-faint); }
+.sd-chip[data-bucket="ATTESA"] { border-color: var(--sd-wait); }
+.sd-chip[data-bucket="PARCHEGGIO"] { border-color: var(--sd-park); grid-column: 1 / -1; }
+
+.sd-addrow { display: flex; gap: 8px; margin-bottom: 6px; }
+.sd-addrow input { flex: 1; margin-bottom: 0; }
+.sd-addrow select {
+  border: 1.5px solid var(--sd-ink);
+  background: var(--sd-paper);
+  font-family: var(--sd-f-body);
+  font-size: 13px;
+  padding: 0 8px;
+  color: var(--sd-ink);
+}
+.sd-add-btn { padding: 0 16px; border: none; background: var(--sd-accent); color: #fff; font-weight: 700; font-size: 18px; cursor: pointer; }
+
+.sd-focus-banner { margin: 14px 0; padding: 12px 14px; border: 2px solid var(--sd-accent); background: var(--sd-accent-soft); font-size: 13px; line-height: 1.4; }
+.sd-focus-banner b { font-family: var(--sd-f-disp); }
+.sd-focus-banner .sd-none { color: var(--sd-ink-soft); font-style: italic; }
+
+.sd-group { margin-bottom: 18px; }
+.sd-group h3 {
+  font-family: var(--sd-f-body);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--sd-ink-faint);
+  margin: 0 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sd-group h3::after { content: ""; flex: 1; height: 1px; background: var(--sd-line); }
+.sd-group[data-bucket="ORA"] h3 { color: var(--sd-accent); }
+
+.sd-task { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--sd-paper-2); border-left: 4px solid var(--sd-line); margin-bottom: 6px; }
+.sd-task[data-bucket="ORA"] { border-left-color: var(--sd-accent); }
+.sd-task[data-bucket="DOPO"] { border-left-color: var(--sd-ink); }
+.sd-task[data-bucket="POI"] { border-left-color: var(--sd-ink-faint); }
+.sd-task[data-bucket="ATTESA"] { border-left-color: var(--sd-wait); }
+.sd-task[data-bucket="PARCHEGGIO"] { border-left-color: var(--sd-park); }
+.sd-task .sd-txt { flex: 1; font-size: 14px; line-height: 1.3; }
+.sd-task.done .sd-txt { text-decoration: line-through; color: var(--sd-ink-faint); }
+.sd-task .sd-mv { border: 1px solid var(--sd-line); background: var(--sd-paper); font-size: 11px; padding: 3px 5px; color: var(--sd-ink-soft); cursor: pointer; }
+.sd-task .sd-chk { width: 22px; height: 22px; border: 1.5px solid var(--sd-ink-soft); background: var(--sd-paper); cursor: pointer; flex: none; display: grid; place-items: center; font-size: 14px; color: var(--sd-ok); }
+.sd-task .sd-del { border: none; background: transparent; color: var(--sd-ink-faint); font-size: 17px; cursor: pointer; padding: 2px 4px; }
+
+.sd-empty { font-size: 13px; color: var(--sd-ink-faint); font-style: italic; padding: 8px 0; }
